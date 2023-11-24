@@ -5,7 +5,7 @@ A Docker/OCI image to include hugo (extended) and Golang (for hugo-modules).
 ## How to use
 
 ```sh
-$ docker run --rm ghcr.io/hostwithquantum/hugo-docker:TAG version
+$ docker run --rm ghcr.io/hostwithquantum/hugo-docker:latest version
 hugo v0.120.4-f11bca5fec2ebb3a02727fb2a5cfb08da96fd9df+extended linux/amd64 BuildDate=2023-11-08T11:18:07Z VendorInfo=gohugoio
 ```
 
@@ -14,7 +14,8 @@ hugo v0.120.4-f11bca5fec2ebb3a02727fb2a5cfb08da96fd9df+extended linux/amd64 Buil
 Incorporate into your own image:
 
 ```Dockerfile
-FROM ghcr.io/hostwithquantum/hugo-docker:TAG as hugo
+# get a specific tag to avoid potential breaks
+FROM ghcr.io/hostwithquantum/hugo-docker:latest as hugo
 
 WORKDIR /website
 ADD all-the-hugo-files .
