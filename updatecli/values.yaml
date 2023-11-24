@@ -1,0 +1,7 @@
+github:
+  user: "GitHub Actions Bot"
+  owner: "hostwithquantum"
+  repository: hugo-docker
+  token: "UPDATECLI_GITHUB_TOKEN"
+  branch: main
+  hidecredit: true

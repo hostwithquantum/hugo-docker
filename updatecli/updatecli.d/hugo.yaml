@@ -1,0 +1,48 @@
+name: Update Hugo from upstream
+
+scms:
+  default:
+    kind: github
+    spec:
+      user: "{{ .github.user }}"
+      email: "{{ .github.email }}"
+      owner: "{{ .github.owner }}"
+      repository: "{{ .github.repository }}"
+      token: "{{ requiredEnv .github.token }}"
+      branch: "{{ .github.branch }}"
+
+sources:
+  gohugo:
+    name: Get latest Hugo release
+    kind: githubrelease
+    spec:
+      owner: "gohugoio"
+      repository: "hugo"
+      token: '{{ requiredEnv "GITHUB_TOKEN" }}'
+      versionfilter:
+        kind: latest
+    transformers:
+    - trimprefix: 'v'
+
+targets:
+  dockerfile:
+    name: Update Dockerfile ARG HUGO_VERSION
+    kind: dockerfile
+    scmid: default
+    sourceid: gohugo
+    spec:
+      file: Dockerfile
+      instruction:
+        keyword: ARG
+        matcher: HUGO_VERSION
+
+actions:
+  default:
+    kind: github/pullrequest
+    scmid: default
+    title: 'Update Hugo version to {{ source "gohugo" }}'
+    spec:
+      automerge: false
+      labels:
+      - dependencies
+      - enhancement
