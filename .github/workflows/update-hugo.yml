@@ -19,6 +19,6 @@ jobs:
       - run: "updatecli diff --config ./updatecli/updatecli.d --values updatecli/values.yaml"
         env:
           UPDATECLI_GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
-      - run: "updatecli apply --config ./updatecli/updatecli.d --values updatecli/values.yaml"
+      - run: "updatecli apply --debug --config ./updatecli/updatecli.d --values updatecli/values.yaml"
         env:
           UPDATECLI_GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
