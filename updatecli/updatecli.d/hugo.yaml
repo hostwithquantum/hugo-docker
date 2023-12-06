@@ -4,12 +4,13 @@ scms:
   default:
     kind: github
     spec:
-      user: "{{ .github.user }}"
-      email: "{{ .github.email }}"
-      owner: "{{ .github.owner }}"
-      repository: "{{ .github.repository }}"
-      token: "{{ requiredEnv .github.token }}"
-      branch: "{{ .github.branch }}"
+      user: hostwithquantum
+      email: team+updates@planetary-quantum.com
+      username: '{{ requiredEnv "UPDATECLI_GITHUB_ACTOR" }}'
+      owner: "hostwithquantum"
+      repository: "hugo-docker"
+      token: '{{ requiredEnv "UPDATECLI_GITHUB_TOKEN" }}'
+      branch: "main"
 
 sources:
   gohugo:
@@ -18,7 +19,7 @@ sources:
     spec:
       owner: "gohugoio"
       repository: "hugo"
-      token: "{{ requiredEnv .github.token }}"
+      token: '{{ requiredEnv "UPDATECLI_GITHUB_TOKEN" }}'
       versionfilter:
         kind: latest
     transformers:
