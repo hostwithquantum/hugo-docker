@@ -44,7 +44,7 @@ actions:
     title: 'Update Hugo version to {{ source "gohugo" }}'
     spec:
       automerge: false
-      draft: true
+      draft: false
       labels:
       - dependencies
       - enhancement
