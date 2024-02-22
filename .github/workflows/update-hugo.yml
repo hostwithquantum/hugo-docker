@@ -1,4 +1,4 @@
-name: update-hugo
+name: update
 
 on:
   workflow_dispatch:
