@@ -2,6 +2,8 @@
 
 A Docker/OCI image to include hugo (extended) and Golang (for hugo-modules).
 
+![hugo-docker OCI image](./gohugo-docker.svg)
+
 ## How to use
 
 ```sh
