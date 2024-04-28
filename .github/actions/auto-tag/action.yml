@@ -36,7 +36,7 @@ runs:
       TAG: ${{ inputs.TAG }}
       PAT: ${{ inputs.PAT }}
       USER: ${{ inputs.user }}
-    if: ${{ steps.status.outputs.status == "create" }}
+    if: steps.status.outputs.status == 'create'
     run: |
       git tag -a ${TAG} -m "auto-tag: ${TAG}"
       git push origin --tags --follow-tags -u "${USER}:${PAT}"
