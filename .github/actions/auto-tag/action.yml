@@ -1,0 +1,43 @@
+name: 'auto-tag'
+description: 'Create a new git-tag'
+inputs:
+  tag:
+    description: 'The tag to potentially create'
+    required: true
+  pat:
+    description: 'personal access token (PAT)'
+    required: true
+  user:
+    description: 'GitHub user'
+    required: true
+outputs:
+  status:
+    description: "skip or create"
+    value: ${{ steps.status.outputs.status }}
+runs:
+  using: "composite"
+  steps:
+  - name: "Check if ${{ inputs.tag }} exists"
+    shell: bash
+    id: status
+    env:
+      TAG: ${{ inputs.tag }}
+    run: |
+      if git show-ref --tags --verify --quiet "refs/tags/${TAG}"; then
+        echo "Tag ${TAG} exists"
+        echo "status=skip" >> $GITHUB_OUTPUT
+      else
+        echo "Tag ${TAG} does not exist"
+        echo "status=create" >> $GITHUB_OUTPUT
+      fi
+  - name: "Push tag"
+    shell: bash
+    env:
+      TAG: ${{ inputs.TAG }}
+      PAT: ${{ inputs.PAT }}
+      USER: ${{ inputs.user }}
+    if: ${{ steps.status.outputs.status == "create" }}
+    run: |
+      git tag -a ${TAG} -m "auto-tag: ${TAG}"
+      git push origin --tags --follow-tags -u "${USER}:${PAT}"
+
