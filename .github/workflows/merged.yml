@@ -19,4 +19,10 @@ jobs:
     - run: |
         hugo_version=$(cat Dockerfile|grep 'ARG HUGO_VERSION='|awk '{split($2,v,"=");print v[2]}')
         echo "hugo_version=v${hugo_version}" >> $GITHUB_ENV
-    - run: $hugo_version
+    - run: echo "${hugo_version}"
+    - run: |
+        if git show-ref --tags --verify --quiet "refs/tags/${hugo_version}"; then
+          echo "Tag ${hugo_version} exists"
+        else
+          echo "Tag ${hugo_version} does not exist"
+        fi
