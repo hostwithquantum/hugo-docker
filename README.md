@@ -11,6 +11,13 @@ $ docker run --rm ghcr.io/hostwithquantum/hugo-docker:latest version
 hugo v0.120.4-f11bca5fec2ebb3a02727fb2a5cfb08da96fd9df+extended linux/amd64 BuildDate=2023-11-08T11:18:07Z VendorInfo=gohugoio
 ```
 
+### Registries
+
+The Image is pushed to multiple registries:
+
+- [`ghcr.io/hostwithquantum/hugo-docker`](https://github.com/hostwithquantum/hugo-docker/pkgs/container/hugo-docker)
+- [`docker.io/runwaypaas/hugo-docker`](https://hub.docker.com/r/runwaypaas/hugo-docker)
+
 ## Build base for your website
 
 Incorporate into your own image:
