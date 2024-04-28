@@ -1,0 +1,16 @@
+name: auto-tag
+
+on:
+  pull_request:
+    types: [closed]
+
+jobs:
+  merge_job:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    steps:
+    - run: echo "PR ${{ github.event.number }} has been merged"
+    - run: |
+        hugo_version=$(cat Dockerfile|grep 'ARG HUGO_VERSION='|awk '{split($2,v,"=");print v[2]}')
+        echo "hugo_version=v${hugo_version}" >> $GITHUB_ENV
+    - run: $hugo_version
