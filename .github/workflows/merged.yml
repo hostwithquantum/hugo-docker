@@ -8,8 +8,14 @@ jobs:
   merge_job:
     if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
     steps:
     - run: echo "PR ${{ github.event.number }} has been merged"
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
     - run: |
         hugo_version=$(cat Dockerfile|grep 'ARG HUGO_VERSION='|awk '{split($2,v,"=");print v[2]}')
         echo "hugo_version=v${hugo_version}" >> $GITHUB_ENV
