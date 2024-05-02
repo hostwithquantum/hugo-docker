@@ -38,6 +38,8 @@ runs:
       USER: ${{ inputs.user }}
     if: steps.status.outputs.status == 'create'
     run: |
+      git config --local user.email "till@php.net"
+      git config --local user.name "Till Klampaeckel"
       git tag -a ${TAG} -m "auto-tag: ${TAG}"
       git push origin --tags --follow-tags -u "${USER}:${PAT}"
 
