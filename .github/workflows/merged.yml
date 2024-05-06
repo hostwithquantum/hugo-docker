@@ -16,6 +16,7 @@ jobs:
     - uses: actions/checkout@v4
       with:
         fetch-depth: 0
+        token: ${{ secrets.PAT }}
     - id: version
       run: |
         hugo_version=$(cat Dockerfile|grep 'ARG HUGO_VERSION='|awk '{split($2,v,"=");print v[2]}')
@@ -24,6 +25,4 @@ jobs:
     - uses: ./.github/actions/auto-tag
       with:
         tag: ${{ steps.version.outputs.hugo_version }}
-        pat: ${{ secrets.PAT }}
-        user: till
 
