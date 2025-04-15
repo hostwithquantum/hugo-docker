@@ -25,6 +25,18 @@ sources:
     transformers:
     - trimprefix: 'v'
 
+  release_notes:
+    name: Get release notes for Hugo release
+    kind: githubrelease
+    spec:
+      owner: "gohugoio"
+      repository: "hugo"
+      token: '{{ requiredEnv "UPDATECLI_GITHUB_TOKEN" }}'
+      versionfilter:
+        kind: latest
+    transformers:
+    - trimprefix: 'v'
+
 targets:
   dockerfile:
     name: Update Dockerfile ARG HUGO_VERSION
@@ -48,3 +60,9 @@ actions:
       labels:
       - dependencies
       - enhancement
+      body: |
+        This PR updates Hugo to version `{{ source "gohugo" }}`.
+
+        ## Release Notes
+
+        {{ source "release_notes" }}
