@@ -4,6 +4,9 @@ inputs:
   tag:
     description: 'The tag to potentially create'
     required: true
+  gh_token:
+    description: 'The token to use in order to push the tag'
+    required: true
 outputs:
   status:
     description: "skip or create"
@@ -32,7 +35,7 @@ runs:
     if: steps.status.outputs.status == 'create'
     run: |
       git config --local user.email "till@php.net"
-      git config --local user.name "Till Klampaeckel"
+      git config --local user.name "runway-ci-bot[bot]"
       git tag -a ${TAG} -m "auto-tag: ${TAG}"
-      git push origin --tags
+      git push https://x-access-token:${{ inputs.gh_token }}@github.com/${{ github.repository }} "$TAG"
 
