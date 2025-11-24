@@ -16,7 +16,7 @@ jobs:
       with:
         app_id: ${{ secrets.RUNWAY_CI_BOT_APP_ID }}
         private_key: ${{ secrets.RUNWAY_CI_BOT_PRIVATE_KEY }}
-    - uses: actions/checkout@v5
+    - uses: actions/checkout@v6
       with:
         fetch-depth: 0
         token: ${{ steps.create_token.outputs.token }}
